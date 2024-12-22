@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"; // For form validation
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import localforage from "localforage"; // Importing localForage
 
 // Validation Schema with Yup
 const validationSchema = Yup.object({
@@ -13,17 +14,33 @@ function HostPortal() {
   const [generatedLink, setGeneratedLink] = useState("");
   const navigate = useNavigate(); 
 
-  // Fetch questions from localStorage when the component loads
+  // Fetch questions from localForage when the component loads
   useEffect(() => {
-    const storedQuestions = JSON.parse(localStorage.getItem("questions"));
-    if (storedQuestions) {
-      setQuestions(storedQuestions);
-    }
+    const fetchStoredQuestions = async () => {
+      try {
+        const storedQuestions = await localforage.getItem("questions");
+        if (storedQuestions) {
+          setQuestions(storedQuestions); // Set the questions from localForage
+        }
+      } catch (error) {
+        console.error("Error fetching questions from localForage:", error);
+      }
+    };
+
+    fetchStoredQuestions();
   }, []);
 
-  // Update localStorage whenever questions list changes
+  // Update localForage whenever questions list changes
   useEffect(() => {
-    localStorage.setItem("questions", JSON.stringify(questions));
+    if (questions.length > 0) {
+      localforage.setItem("questions", questions)
+        .then(() => {
+          console.log("Questions saved to localForage.");
+        })
+        .catch((error) => {
+          console.error("Error saving questions to localForage:", error);
+        });
+    }
   }, [questions]);
 
   // Add Question to the list

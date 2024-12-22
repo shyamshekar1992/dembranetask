@@ -82,6 +82,24 @@ The application implements the following key features:
   - Can add slight overhead compared to minimal custom form logic.
 - **Future Considerations**:
   - Extend validation logic to handle more complex use cases, like async validation.
+### **localForage for Data Persistence
+- **Pros**:
+
+localForage provides a simple and robust way to store data in the browser using IndexedDB (fallback to localStorage if needed). This ensures data is available across sessions, even after page refreshes.
+Using localForage ensures that form data, such as questions and responses, persists across accidental page refreshes or browser restarts, providing a seamless user experience.
+Unlike localStorage, localForage can handle larger amounts of data efficiently and can be configured to use various storage options depending on browser capabilities.
+- **Cons**:
+
+Requires an additional library and setup to handle data persistence.
+May not be available in very old browsers or certain environments with limited storage support.
+Implementation Insight:
+
+localForage is used to store and retrieve the list of questions in this project. This means that even if a user refreshes the page or navigates away and returns later, the questions will still be available in the browser's local storage.
+This feature prevents the accidental loss of questions due to page refreshes, ensuring that users don’t need to re-enter their questions.
+Future Considerations:
+
+Consider adding data expiration or clearing logic for localForage to ensure outdated or unnecessary data doesn't accumulate.
+Extend the use of localForage to store other forms of user data or preferences for a more personalized user experience
 
 ### **Yarn Package Manager**
 - **Chosen for its speed and reliability compared to npm.**
