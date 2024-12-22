@@ -1,145 +1,201 @@
-Getting Started
-1. Set Up Your Development Environment
+# Coding Challenge Application
+
+## Getting Started
+
+### 1. Set Up Your Development Environment
+
 Ensure you have the following installed:
 
-Node.js (v16 or above recommended)
-Yarn package manager
+- **Node.js** (v16 or above recommended)
+- **Yarn** package manager
+
 Clone the repository and navigate to the project directory:
 
-bash
-Copy code
-git clone <repository-url>
-cd codingchallenge
-2. Frontend Setup
-Install frontend dependencies:
+```bash
+git clone https://github.com/shyamshekar1992/dembranetask
+cd dembranetask
+```
 
-bash
-Copy code
-yarn
-Start the development server:
+---
 
-bash
-Copy code
-yarn start
-The application will be accessible at http://localhost:3000.
+### 2. Frontend Setup
 
-3. Core Features
+1. Install frontend dependencies:
+
+   ```bash
+   yarn
+   ```
+
+2. Start the development server:
+
+   ```bash
+   yarn start
+   ```
+
+The application will be accessible at [http://localhost:3000](http://localhost:3000).
+
+---
+
+### 3. Core Features
+
 The application implements the following key features:
 
-Dynamic Form Handling:
-Uses Formik for building forms and Yup for schema-based validation.
-Validation ensures user inputs are correct before submission.
-Tailwind CSS Styling:
-Provides a responsive and modern UI.
-Custom classes ensure consistency and flexibility in design.
-Link Generation and Sharing:
-Dynamically generate and copy shareable links.
-Documentation
-How to Run the Application
-Install dependencies with yarn.
-Start the application with yarn start.
-Access the application at http://localhost:3000.
-Design Decisions
-Tailwind CSS:
+#### **Dynamic Form Handling**
+- Uses **Formik** for building forms and **Yup** for schema-based validation.
+- Ensures user inputs are correct before submission.
 
-Pros:
-Lightweight and fast.
-Utility-first approach allows for rapid styling without leaving the markup.
-Cons:
-Can result in cluttered markup with long class strings.
-Learning curve for developers unfamiliar with utility-first styling.
-Future Considerations:
-Implement custom themes or extend the Tailwind configuration for more consistent branding.
-Formik and Yup:
+#### **Tailwind CSS Styling**
+- Provides a responsive and modern UI.
+- Custom classes ensure consistency and flexibility in design.
 
-Pros:
-Formik simplifies form management, while Yup provides powerful schema validation.
-Reduces boilerplate code for managing form state and validation logic.
-Cons:
-Can add slight overhead compared to minimal custom form logic.
-Future Considerations:
-Extend validation logic to handle more complex use cases, like async validation.
-Yarn Package Manager:
+#### **Link Generation and Sharing**
+- Dynamically generates and copies shareable links.
 
-Chosen for its speed and reliability compared to npm.
-Ensures consistent dependency management across environments.
-Future Enhancements
-Backend Integration:
-Link the frontend with the backend to enable dynamic data storage and retrieval.
-State Management:
-Consider introducing Redux or React Query for more complex state management.
-Accessibility:
-Ensure all components are fully accessible (e.g., keyboard navigation, ARIA labels).
-Testing:
-Add unit and integration tests using tools like Jest and React Testing Library.
+---
 
+## Documentation
 
+### **How to Run the Application**
+1. Install dependencies with `yarn`.
+2. Start the application with `yarn start`.
+3. Access the application at [http://localhost:3000](http://localhost:3000).
 
+---
 
-3. Backend Setup
-Navigate to the backend directory:
+## Design Decisions
 
-bash
-Copy code
-cd backend
-Install backend dependencies:
+### **Tailwind CSS**
+- **Pros**:
+  - Lightweight and fast.
+  - Utility-first approach allows for rapid styling without leaving the markup.
+- **Cons**:
+  - Can result in cluttered markup with long class strings.
+  - Learning curve for developers unfamiliar with utility-first styling.
+- **Future Considerations**:
+  - Implement custom themes or extend the Tailwind configuration for more consistent branding.
 
-bash
-Copy code
-yarn
-Create a .env file in the backend directory with the following variables:
+### **Formik and Yup**
+- **Pros**:
+  - Formik simplifies form management, while Yup provides powerful schema validation.
+  - Reduces boilerplate code for managing form state and validation logic.
+- **Cons**:
+  - Can add slight overhead compared to minimal custom form logic.
+- **Future Considerations**:
+  - Extend validation logic to handle more complex use cases, like async validation.
 
-env
-Copy code
-PORT=5001
-MONGO_URI=<your-mongodb-connection-string>
-Start the backend server:
+### **Yarn Package Manager**
+- **Chosen for its speed and reliability compared to npm.**
+- Ensures consistent dependency management across environments.
 
-bash
-Copy code
-yarn start
-The backend server will now run on http://localhost:5001.
+---
 
-API Endpoints
-Participant Management:
+## Future Enhancements
 
-POST /api/participants: Add a new participant.
-GET /api/participants: Retrieve all participants.
-Question Management:
+### **Backend Integration**
+- Link the frontend with the backend to enable dynamic data storage and retrieval.
 
-POST /api/questions: Add a new question.
-GET /api/questions: Retrieve all questions.
-Generate Shareable Link:
+### **State Management**
+- Consider introducing Redux or React Query for more complex state management.
 
-GET /api/link: Generate a unique link based on data.
-Features
-Express.js Framework:
-Lightweight and fast framework for building RESTful APIs.
-MongoDB:
-Stores participant data and questions persistently.
-Environment Variables:
-Configured using .env for secure and dynamic settings.
-Design Decisions
-Why Express.js?
-Pros:
-Simple and minimal framework for building APIs.
-Flexible middleware support for handling requests.
-Cons:
-Requires manual setup for common tasks like validation and authentication.
-Why MongoDB?
-Pros:
-Schema-less structure is flexible for storing participant data and questions.
-Integrates well with Node.js applications.
-Cons:
-Requires additional configuration for managing relations and indexing.
-Future Enhancements
-Authentication:
-Add user authentication and authorization using JWT or OAuth.
-Data Validation:
-Integrate a validation library like Joi to validate incoming requests.
-Error Handling:
-Implement centralized error handling for better API response consistency.
-Testing:
-Write unit tests using Jest or Mocha for API endpoints.
-Deployment:
-Prepare the server for deployment using Docker or cloud platforms like AWS or Heroku.
+### **Accessibility**
+- Ensure all components are fully accessible (e.g., keyboard navigation, ARIA labels).
+
+### **Testing**
+- Add unit and integration tests using tools like Jest and React Testing Library.
+
+---
+
+### 3. Backend Setup
+
+1. Navigate to the backend directory:
+
+   ```bash
+   cd backend
+   ```
+
+2. Install backend dependencies:
+
+   ```bash
+   yarn
+   ```
+
+3. Create a `.env` file in the backend directory with the following variables:
+
+   ```env
+   PORT=5001
+   MONGO_URI=<your-mongodb-connection-string>
+   ```
+
+4. Start the backend server:
+
+   ```bash
+   yarn dev
+   ```
+
+The backend server will now run on [http://localhost:5001](http://localhost:5001).
+
+---
+
+## API Endpoints
+
+### **Participant Management**
+- **POST /api/participants**: Add a new participant.
+- **GET /api/participants**: Retrieve all participants.
+
+### **Question Management**
+- **POST /api/questions**: Add a new question.
+- **GET /api/questions**: Retrieve all questions.
+
+### **Generate Shareable Link**
+- **GET /api/link**: Generate a unique link based on data.
+
+---
+
+## Features
+
+### **Express.js Framework**
+- Lightweight and fast framework for building RESTful APIs.
+
+### **MongoDB**
+- Stores participant data and questions persistently.
+
+### **Environment Variables**
+- Configured using `.env` for secure and dynamic settings.
+
+---
+
+## Design Decisions
+
+### **Why Express.js?**
+- **Pros**:
+  - Simple and minimal framework for building APIs.
+  - Flexible middleware support for handling requests.
+- **Cons**:
+  - Requires manual setup for common tasks like validation and authentication.
+
+### **Why MongoDB?**
+- **Pros**:
+  - Schema-less structure is flexible for storing participant data and questions.
+  - Integrates well with Node.js applications.
+- **Cons**:
+  - Requires additional configuration for managing relations and indexing.
+
+---
+
+## Future Enhancements
+
+### **Authentication**
+- Add user authentication and authorization using JWT or OAuth.
+
+### **Data Validation**
+- Integrate a validation library like Joi to validate incoming requests.
+
+### **Error Handling**
+- Implement centralized error handling for better API response consistency.
+
+### **Testing**
+- Write unit tests using Jest or Mocha for API endpoints.
+
+### **Deployment**
+- Prepare the server for deployment using Docker or cloud platforms like AWS or Heroku.
+
