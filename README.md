@@ -1,70 +1,145 @@
-# Getting Started with Create React App
+Getting Started
+1. Set Up Your Development Environment
+Ensure you have the following installed:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Node.js (v16 or above recommended)
+Yarn package manager
+Clone the repository and navigate to the project directory:
 
-## Available Scripts
+bash
+Copy code
+git clone <repository-url>
+cd codingchallenge
+2. Frontend Setup
+Install frontend dependencies:
 
-In the project directory, you can run:
+bash
+Copy code
+yarn
+Start the development server:
 
-### `yarn start`
+bash
+Copy code
+yarn start
+The application will be accessible at http://localhost:3000.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Core Features
+The application implements the following key features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Dynamic Form Handling:
+Uses Formik for building forms and Yup for schema-based validation.
+Validation ensures user inputs are correct before submission.
+Tailwind CSS Styling:
+Provides a responsive and modern UI.
+Custom classes ensure consistency and flexibility in design.
+Link Generation and Sharing:
+Dynamically generate and copy shareable links.
+Documentation
+How to Run the Application
+Install dependencies with yarn.
+Start the application with yarn start.
+Access the application at http://localhost:3000.
+Design Decisions
+Tailwind CSS:
 
-### `yarn test`
+Pros:
+Lightweight and fast.
+Utility-first approach allows for rapid styling without leaving the markup.
+Cons:
+Can result in cluttered markup with long class strings.
+Learning curve for developers unfamiliar with utility-first styling.
+Future Considerations:
+Implement custom themes or extend the Tailwind configuration for more consistent branding.
+Formik and Yup:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Pros:
+Formik simplifies form management, while Yup provides powerful schema validation.
+Reduces boilerplate code for managing form state and validation logic.
+Cons:
+Can add slight overhead compared to minimal custom form logic.
+Future Considerations:
+Extend validation logic to handle more complex use cases, like async validation.
+Yarn Package Manager:
 
-### `yarn build`
+Chosen for its speed and reliability compared to npm.
+Ensures consistent dependency management across environments.
+Future Enhancements
+Backend Integration:
+Link the frontend with the backend to enable dynamic data storage and retrieval.
+State Management:
+Consider introducing Redux or React Query for more complex state management.
+Accessibility:
+Ensure all components are fully accessible (e.g., keyboard navigation, ARIA labels).
+Testing:
+Add unit and integration tests using tools like Jest and React Testing Library.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+3. Backend Setup
+Navigate to the backend directory:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+bash
+Copy code
+cd backend
+Install backend dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+bash
+Copy code
+yarn
+Create a .env file in the backend directory with the following variables:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+env
+Copy code
+PORT=5001
+MONGO_URI=<your-mongodb-connection-string>
+Start the backend server:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+bash
+Copy code
+yarn start
+The backend server will now run on http://localhost:5001.
 
-## Learn More
+API Endpoints
+Participant Management:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+POST /api/participants: Add a new participant.
+GET /api/participants: Retrieve all participants.
+Question Management:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+POST /api/questions: Add a new question.
+GET /api/questions: Retrieve all questions.
+Generate Shareable Link:
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GET /api/link: Generate a unique link based on data.
+Features
+Express.js Framework:
+Lightweight and fast framework for building RESTful APIs.
+MongoDB:
+Stores participant data and questions persistently.
+Environment Variables:
+Configured using .env for secure and dynamic settings.
+Design Decisions
+Why Express.js?
+Pros:
+Simple and minimal framework for building APIs.
+Flexible middleware support for handling requests.
+Cons:
+Requires manual setup for common tasks like validation and authentication.
+Why MongoDB?
+Pros:
+Schema-less structure is flexible for storing participant data and questions.
+Integrates well with Node.js applications.
+Cons:
+Requires additional configuration for managing relations and indexing.
+Future Enhancements
+Authentication:
+Add user authentication and authorization using JWT or OAuth.
+Data Validation:
+Integrate a validation library like Joi to validate incoming requests.
+Error Handling:
+Implement centralized error handling for better API response consistency.
+Testing:
+Write unit tests using Jest or Mocha for API endpoints.
+Deployment:
+Prepare the server for deployment using Docker or cloud platforms like AWS or Heroku.
