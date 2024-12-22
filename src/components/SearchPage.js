@@ -2,12 +2,9 @@ import React, { useState } from "react";
 
 function SearchPage() {
   const [responses, setResponses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // For storing the search term
   const [filteredResponses, setFilteredResponses] = useState([]);
-  const [linkId, setLinkId] = useState("");  // For storing dynamic linkId entered by the user
+  const [linkId, setLinkId] = useState(""); // For storing dynamic linkId entered by the user
   const [loading, setLoading] = useState(false);
-
-
 
   // Fetch responses based on entered linkId and search term
   const handleSearch = async (e) => {
@@ -18,7 +15,7 @@ function SearchPage() {
       return;
     }
 
-    setLoading(true);  // Start loading
+    setLoading(true); // Start loading
 
     try {
       // Fetch responses based on the entered linkId
@@ -38,7 +35,7 @@ function SearchPage() {
           const responseString = Object.values(response.responses)
             .join(" ")
             .toLowerCase();
-          return responseString.includes(searchTerm.toLowerCase());
+          return responseString.includes(""); // No search term used, just return all responses
         });
         setFilteredResponses(filtered); // Set filtered responses
       }
@@ -52,12 +49,18 @@ function SearchPage() {
 
   // If still loading data
   if (loading) {
-    return <div className="text-center text-lg font-semibold">Loading data...</div>;
+    return (
+      <div className="text-center text-lg font-semibold mt-10">
+        Loading data, please wait...
+      </div>
+    );
   }
 
   // Insights
-  const totalResponses = filteredResponses.length;  // Total number of filtered responses
-  const totalQuestions = responses.length > 0 ? Object.keys(responses[0].responses).length : 0; // Get the number of questions per response
+  const totalResponses = filteredResponses.length; // Total number of filtered responses
+  const totalQuestions =
+    responses.length > 0 ? Object.keys(responses[0].responses).length : 0; // Get the number of questions per response
+
   const averageResponsesPerParticipant =
     totalResponses > 0
       ? Math.round(
@@ -65,6 +68,17 @@ function SearchPage() {
             (acc, response) => acc + Object.values(response.responses).length,
             0
           ) / totalResponses
+        )
+      : 0;
+
+  // Calculate average age
+  const averageAge =
+    totalResponses > 0
+      ? Math.round(
+          filteredResponses.reduce((acc, response) => {
+            const age = response.responses.age;
+            return age ? acc + Number(age) : acc;
+          }, 0) / totalResponses
         )
       : 0;
 
@@ -76,7 +90,7 @@ function SearchPage() {
       <div className="mb-4 flex justify-center items-center space-x-2">
         <input
           type="text"
-          placeholder="Enter linkId:gstk159e"
+          placeholder="Enter linkId"
           value={linkId}
           onChange={(e) => setLinkId(e.target.value)} // Update linkId dynamically
           className="border border-gray-300 rounded-md p-2 w-64"
@@ -98,6 +112,7 @@ function SearchPage() {
               <li>Total Responses: {totalResponses}</li>
               <li>Total Questions: {totalQuestions}</li>
               <li>Average Responses per Participant: {averageResponsesPerParticipant}</li>
+              <li>Average Age Of Participants: {averageAge} years</li>
             </ul>
           </div>
         )}

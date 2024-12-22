@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup"; // For form validation
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
@@ -13,10 +13,22 @@ function HostPortal() {
   const [generatedLink, setGeneratedLink] = useState("");
   const navigate = useNavigate(); 
 
+  // Fetch questions from localStorage when the component loads
+  useEffect(() => {
+    const storedQuestions = JSON.parse(localStorage.getItem("questions"));
+    if (storedQuestions) {
+      setQuestions(storedQuestions);
+    }
+  }, []);
+
+  // Update localStorage whenever questions list changes
+  useEffect(() => {
+    localStorage.setItem("questions", JSON.stringify(questions));
+  }, [questions]);
+
   // Add Question to the list
   const handleAddQuestion = (values, resetForm) => {
     if (values.currentQuestion.trim()) {
-      // Ensure the question ends with a question mark
       const formattedQuestion = values.currentQuestion.trim().endsWith("?")
         ? values.currentQuestion.trim()
         : `${values.currentQuestion.trim()}?`;
@@ -75,14 +87,16 @@ function HostPortal() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">Create Questions</h1>
+    <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <h1 className="text-3xl font-bold mb-6 text-center">Create Questions</h1>
 
       {/* Form to add a question */}
       <Formik
         initialValues={{ currentQuestion: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values, { resetForm }) => handleAddQuestion(values, resetForm)}
+        onSubmit={(values, { resetForm }) =>
+          handleAddQuestion(values, resetForm)
+        }
       >
         {({ isSubmitting }) => (
           <Form className="space-y-4">
@@ -115,7 +129,10 @@ function HostPortal() {
       <div className="mt-6">
         <ul className="space-y-2">
           {questions.map((q, index) => (
-            <li key={index} className="p-3 bg-gray-100 rounded-md shadow-sm flex justify-between items-center">
+            <li
+              key={index}
+              className="p-3 bg-gray-100 rounded-md shadow-sm flex justify-between items-center"
+            >
               <span>{q}</span>
               <button
                 onClick={() => handleDeleteQuestion(index)}
@@ -132,7 +149,10 @@ function HostPortal() {
       <div className="mt-6">
         <button
           onClick={handleSubmit}
-          className={`w-full p-3 text-white rounded-md focus:outline-none ${questions.length === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"}`}
+          className={`w-full p-3 text-white rounded-md focus:outline-none ${questions.length === 0
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-green-600 hover:bg-green-700"
+            }`}
           disabled={questions.length === 0}
         >
           Generate Link
@@ -141,13 +161,17 @@ function HostPortal() {
 
       {/* Show the generated link */}
       {generatedLink && (
-        <div className="mt-4">
-          <h2 className="text-xl font-semibold">Share this link with participants:</h2>
-          <div className="flex items-center">
-            <p className="text-gray-700 mr-4">{window.location.origin}/{generatedLink}</p>
+        <div className="mt-6 p-4 bg-blue-50 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold text-gray-700 mb-2">
+            Share this link with participants:
+          </h2>
+          <div className="flex items-center space-x-4">
+            <p className="text-gray-800 font-medium">
+              {window.location.origin}/{generatedLink}
+            </p>
             <button
               onClick={handleCopyLink}
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none"
             >
               Copy
             </button>

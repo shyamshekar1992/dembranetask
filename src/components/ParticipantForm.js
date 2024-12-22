@@ -6,6 +6,7 @@ import * as Yup from "yup"; // For form validation
 function ParticipantForm() {
   const { linkId } = useParams(); // Get the linkId from the URL
   const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   // Fetch questions from the backend
@@ -27,6 +28,8 @@ function ParticipantForm() {
       } catch (error) {
         console.error("Error fetching questions:", error);
         alert("Failed to fetch questions.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -77,6 +80,10 @@ function ParticipantForm() {
       }
     },
   });
+
+  if (loading) {
+    return <div className="text-center text-lg font-semibold">Loading questions...</div>;
+  }
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
